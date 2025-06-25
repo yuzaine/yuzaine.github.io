@@ -1,1 +1,356 @@
-# yuzaine.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#ff6b8b',secondary:'#9d4edd'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Montserrat', sans-serif;
+background-color: #fff9fb;
+}
+.love-message {
+font-family: 'Dancing Script', cursive;
+}
+.floating {
+animation: floating 3s ease-in-out infinite;
+}
+.floating-delay-1 {
+animation-delay: 0.5s;
+}
+.floating-delay-2 {
+animation-delay: 1s;
+}
+@keyframes floating {
+0% { transform: translateY(0px); }
+50% { transform: translateY(-10px); }
+100% { transform: translateY(0px); }
+}
+.heart-beat {
+animation: heartBeat 1.5s ease-in-out infinite;
+}
+@keyframes heartBeat {
+0% { transform: scale(1); }
+14% { transform: scale(1.2); }
+28% { transform: scale(1); }
+42% { transform: scale(1.2); }
+70% { transform: scale(1); }
+}
+.confetti {
+position: absolute;
+width: 10px;
+height: 10px;
+opacity: 0;
+animation: confetti-fall 5s ease-in-out forwards;
+}
+@keyframes confetti-fall {
+0% { transform: translateY(-100px); opacity: 1; }
+100% { transform: translateY(500px); opacity: 0; }
+}
+.video-player::-webkit-media-controls-panel {
+background-color: rgba(255, 107, 139, 0.2);
+}
+.custom-play-btn {
+transition: transform 0.3s ease;
+}
+.custom-play-btn:hover {
+transform: scale(1.1);
+}
+</style>
+</head>
+<body class="bg-[#fff9fb] min-h-screen">
+<!-- Loading Animation -->
+<div id="loading-screen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+<div class="w-16 h-16 mb-4 text-primary heart-beat">
+<i class="ri-heart-fill ri-3x"></i>
+</div>
+<p class="text-primary font-medium">Loading your special message...</p>
+</div>
+<!-- Nav Bar -->
+<nav class="fixed w-full top-0 bg-primary text-white shadow-md z-40 h-14 flex items-center justify-center">
+<h1 class="text-xl font-semibold"></h1>
+</nav>
+<!-- Main Content -->
+<main class="pt-20 pb-20 px-4">
+<!-- Header Section -->
+<section class="relative mb-8 pt-4">
+<div class="absolute -top-4 right-4 w-10 h-10 flex items-center justify-center text-primary floating">
+<i class="ri-heart-fill ri-2x"></i>
+</div>
+<div class="absolute top-2 left-2 w-8 h-8 flex items-center justify-center text-secondary floating-delay-1">
+<i class="ri-cake-2-fill ri-2x"></i>
+</div>
+<div class="absolute bottom-0 right-12 w-6 h-6 flex items-center justify-center text-primary floating-delay-2">
+<i class="ri-heart-fill ri-xl"></i>
+</div>
+<h1 class="text-center text-3xl font-bold text-gray-800 mb-2">Happy Birthday</h1>
+<h2 class="text-center text-4xl font-['Pacifico'] text-primary mb-4">Budss</h2>
+<p class="text-center text-gray-600 italic">June 26, 2025</p>
+<div class="mt-6 flex justify-center">
+<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-lg heart-beat">
+<i class="ri-cake-3-fill ri-2x text-white"></i>
+</div>
+</div>
+</section>
+<!-- Video Player Section -->
+<section class="mb-10 flex justify-center">
+  <div class="relative bg-white p-3 rounded-xl shadow-lg w-[720px] max-w-full h-[960px] mx-auto">
+    <div id="video-container" class="relative w-full h-[860px] bg-black rounded-lg overflow-hidden">
+      <div id="custom-play-btn" class="absolute inset-0 flex items-center justify-center cursor-pointer custom-play-btn z-10">
+        <div class="w-16 h-16 bg-primary bg-opacity-80 rounded-full flex items-center justify-center shadow-lg">
+          <i class="ri-play-fill ri-2x text-white"></i>
+        </div>
+      </div>
+      <video id="birthday-video" class="video-player w-full h-full object-cover hidden" controls>
+        <source src="jyKnep_Y.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="absolute bottom-3 right-3 text-xs text-white bg-black bg-opacity-50 px-2 py-1 rounded-full z-20">
+        00:16
+      </div>
+    </div>
+    <div class="flex justify-between items-center mt-4">
+      <button id="mute-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 rounded-full hover:bg-gray-100 cursor-pointer">
+        <i class="ri-volume-up-line ri-lg"></i>
+      </button>
+      <div class="flex space-x-3">
+        <button id="download-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 rounded-full hover:bg-gray-100 cursor-pointer">
+          <i class="ri-download-line ri-lg"></i>
+        </button>
+        <button id="fullscreen-btn" class="w-10 h-10 flex items-center justify-center text-gray-600 rounded-full hover:bg-gray-100 cursor-pointer">
+          <i class="ri-fullscreen-line ri-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Message Section -->
+<section class="mb-10">
+<div class="bg-white rounded-xl p-6 shadow-md relative overflow-hidden">
+<div class="absolute -top-2 -right-2 w-12 h-12 flex items-center justify-center text-primary opacity-20">
+<i class="ri-heart-fill ri-3x"></i>
+</div>
+<h3 class="text-2xl font-bold text-primary mb-4 text-center">My Ang Ex na Gwapo!!! BUDSS name na nimo sa Messenger ba haha</h3>
+<div class="love-message text-lg text-gray-700 leading-relaxed mb-4">
+<p class="mb-4">On your special day, I wanted to create something as unique and wonderful as you are to me. Every moment we've shared has been a blessing, and I'm so grateful to have you in my life.</p>
+<p class="mb-4">Remember our first date first Kiss, first Bembangan? hahahahaha Kulba kaau pero happy kaau ko ato, but somehow that made me fall for you even more. Since then, you've filled my days with laughter, love, and countless beautiful memories.</p>
+<div id="expanded-message" class="hidden">
+<p class="mb-4">You've been my rock through the challenging times and my biggest cheerleader during the good ones. Your kindness, humor, and the way you always know exactly what to say make every day brighter.</p>
+<p class="mb-4">As you blow out your candles today, know that my wish is for you to have all the happiness and success you deserve. I promise to be by your side for many more birthdays to come.</p>
+<p>With all my love,<br>Samokan Danny Boy</p>
+</div>
+</div>
+<div class="text-center">
+<button id="read-more-btn" class="text-primary font-medium cursor-pointer !rounded-button">Read More ↓</button>
+</div>
+</div>
+</section>
+<!-- Photo Gallery -->
+<section class="mb-10">
+  <h3 class="text-xl font-bold text-gray-800 mb-4">Your Memories that was captured of Mine</h3>
+  <div class="grid grid-cols-2 gap-2">
+    <div class="aspect-square rounded-lg overflow-hidden">
+      <img src="1.jpg" alt="Memory 1" class="w-full h-full object-cover">
+    </div>
+    <div class="aspect-square rounded-lg overflow-hidden">
+      <img src="2.jpg" alt="Memory 2" class="w-full h-full object-cover">
+    </div>
+    <div class="aspect-square rounded-lg overflow-hidden">
+      <img src="4.jpg" alt="Memory 3" class="w-full h-full object-cover">
+    </div>
+    <div class="aspect-square rounded-lg overflow-hidden">
+      <img src="5.jpg" alt="Memory 4" class="w-full h-full object-cover">
+    </div>
+  </div>
+</section>
+<!-- Footer Section -->
+<section class="relative text-center">
+<div class="mb-4">
+<p class="love-message text-2xl text-primary">Forever Yours,</p>
+<p class="love-message text-3xl font-bold text-primary">Danny Boy</p>
+</div>
+<p class="text-gray-500 text-sm">June 26, 2025</p>
+<div class="mt-4 flex justify-center">
+<button id="music-toggle" class="flex items-center space-x-2 text-gray-600 py-2 px-4 rounded-full bg-white shadow-sm cursor-pointer">
+<i class="ri-music-2-line"></i>
+<span>Exchange of Hearts</span>
+</button>
+</div>
+<div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+</section>
+</main>
+<!-- Tab Bar -->
+<div class="fixed bottom-0 w-full bg-white shadow-lg border-t border-gray-200 z-40">
+<div class="grid grid-cols-2 h-16">
+<a href="#" class="flex flex-col items-center justify-center text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-heart-fill ri-lg"></i>
+</div>
+<span class="text-xs mt-1">Home</span>
+</a>
+<a href="#" class="flex flex-col items-center justify-center text-gray-500">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs mt-1">Gallery</span>
+</a>
+<!-- Audio Element -->
+<audio id="background-music" loop>
+<source src="#" type="audio/mpeg">
+</audio>
+<script id="loading-script">
+document.addEventListener('DOMContentLoaded', function() {
+setTimeout(function() {
+const loadingScreen = document.getElementById('loading-screen');
+loadingScreen.style.opacity = '0';
+loadingScreen.style.transition = 'opacity 0.5s ease';
+setTimeout(function() {
+loadingScreen.style.display = 'none';
+}, 500);
+}, 2000);
+});
+</script>
+<script id="video-player-script">
+document.addEventListener('DOMContentLoaded', function () {
+  const customPlayBtn = document.getElementById('custom-play-btn');
+  const videoPlayer = document.getElementById('birthday-video');
+  const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const muteBtn = document.getElementById('mute-btn');
+  const downloadBtn = document.getElementById('download-btn');
+
+  customPlayBtn.addEventListener('click', function () {
+    customPlayBtn.style.display = 'none';
+    videoPlayer.classList.remove('hidden');
+    videoPlayer.play();
+  });
+
+  fullscreenBtn.addEventListener('click', function () {
+    if (videoPlayer.requestFullscreen) {
+      videoPlayer.requestFullscreen();
+    } else if (videoPlayer.webkitRequestFullscreen) {
+      videoPlayer.webkitRequestFullscreen();
+    } else if (videoPlayer.msRequestFullscreen) {
+      videoPlayer.msRequestFullscreen();
+    }
+  });
+
+  muteBtn.addEventListener('click', function () {
+    videoPlayer.muted = !videoPlayer.muted;
+    muteBtn.innerHTML = videoPlayer.muted
+      ? '<i class="ri-volume-mute-line ri-lg"></i>'
+      : '<i class="ri-volume-up-line ri-lg"></i>';
+  });
+
+  downloadBtn.addEventListener('click', function () {
+    const a = document.createElement('a');
+    a.href = videoPlayer.querySelector('source').src;
+    a.download = 'HappyBirthdayJames.mp4';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+});
+</script>
+<script id="read-more-script">
+document.addEventListener('DOMContentLoaded', function() {
+const readMoreBtn = document.getElementById('read-more-btn');
+const expandedMessage = document.getElementById('expanded-message');
+readMoreBtn.addEventListener('click', function() {
+if (expandedMessage.classList.contains('hidden')) {
+expandedMessage.classList.remove('hidden');
+readMoreBtn.textContent = 'Read Less ↑';
+} else {
+expandedMessage.classList.add('hidden');
+readMoreBtn.textContent = 'Read More ↓';
+}
+});
+});
+</script>
+<script id="send-love-script">
+document.addEventListener('DOMContentLoaded', function() {
+const sendLoveBtn = document.getElementById('send-love-btn');
+const loveCount = document.getElementById('love-count');
+const confettiContainer = document.getElementById('confetti-container');
+let count = 124;
+sendLoveBtn.addEventListener('click', function() {
+count++;
+loveCount.textContent = count;
+// Heart animation
+const heart = document.createElement('div');
+heart.className = 'absolute text-primary heart-beat';
+heart.style.left = Math.random() * 100 + '%';
+heart.style.top = Math.random() * 100 + '%';
+heart.innerHTML = '<i class="ri-heart-fill ri-2x"></i>';
+sendLoveBtn.classList.add('scale-110');
+setTimeout(() => {
+sendLoveBtn.classList.remove('scale-110');
+}, 200);
+// Create confetti
+for (let i = 0; i < 30; i++) {
+createConfetti();
+}
+});
+function createConfetti() {
+const confetti = document.createElement('div');
+confetti.className = 'confetti';
+// Random position
+confetti.style.left = Math.random() * 100 + '%';
+// Random color
+const colors = ['#ff6b8b', '#9d4edd', '#ffbe0b', '#3a86ff', '#8ac926'];
+confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+// Random rotation
+confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+// Random shape
+const shapes = ['circle', 'square', 'triangle'];
+const shape = shapes[Math.floor(Math.random() * shapes.length)];
+if (shape === 'circle') {
+confetti.style.borderRadius = '50%';
+} else if (shape === 'triangle') {
+confetti.style.width = '0';
+confetti.style.height = '0';
+confetti.style.backgroundColor = 'transparent';
+confetti.style.borderLeft = '5px solid transparent';
+confetti.style.borderRight = '5px solid transparent';
+confetti.style.borderBottom = `10px solid ${colors[Math.floor(Math.random() * colors.length)]}`;
+}
+// Random size
+const size = Math.random() * 10 + 5;
+confetti.style.width = `${size}px`;
+confetti.style.height = `${size}px`;
+// Random animation duration
+confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+confettiContainer.appendChild(confetti);
+// Remove after animation
+setTimeout(() => {
+confetti.remove();
+}, 5000);
+}
+});
+</script>
+<script id="music-toggle-script">
+document.addEventListener('DOMContentLoaded', function() {
+const musicToggle = document.getElementById('music-toggle');
+const backgroundMusic = document.getElementById('background-music');
+let isMusicPlaying = false;
+musicToggle.addEventListener('click', function() {
+if (isMusicPlaying) {
+backgroundMusic.pause();
+musicToggle.innerHTML = '<i class="ri-music-2-line"></i><span>Play Music</span>';
+} else {
+backgroundMusic.play();
+musicToggle.innerHTML = '<i class="ri-music-2-fill"></i><span>Pause Music</span>';
+}
+isMusicPlaying = !isMusicPlaying;
+});
+});
+</script>
+</body>
+</html>
